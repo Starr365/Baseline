@@ -3,7 +3,7 @@
 import React, { useMemo, useState } from 'react';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
 import { Activity, Brain, Mic, Scan, Shield, TrendingUp, History, LayoutDashboard } from 'lucide-react';
@@ -53,7 +53,7 @@ function DashboardMain() {
         </nav>
 
         <div className="mt-auto">
-          <WalletMultiButton className="!bg-blue-600 !rounded-xl !h-12 !w-full !text-sm !font-semibold hover:!bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.2)]" />
+          <WalletMultiButton className="bg-blue-600! rounded-xl! h-12! w-full! text-sm! font-semibold! hover:bg-blue-500! transition-all shadow-[0_0_20px_rgba(37,99,235,0.2)]" />
         </div>
       </aside>
 
@@ -88,7 +88,7 @@ function DashboardMain() {
                  </div>
                  <h2 className="text-xl font-bold mb-6">Health Drift Score</h2>
                  <div className="flex items-end gap-6 mb-8">
-                    <div className="text-7xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white to-slate-500">84</div>
+                    <div className="text-7xl font-bold tracking-tighter text-transparent bg-clip-text bg-linear-to-br from-white to-slate-500">84</div>
                     <div className="mb-2">
                        <div className="text-green-400 text-sm font-bold flex items-center gap-1">
                           <TrendingUp className="w-4 h-4" /> +2.4%
@@ -101,7 +101,7 @@ function DashboardMain() {
                       initial={{ width: 0 }}
                       animate={{ width: '84%' }}
                       transition={{ duration: 1.5, ease: "easeOut" }}
-                      className="h-full bg-gradient-to-r from-blue-600 to-violet-500 rounded-full"
+                      className="h-full bg-linear-to-r from-blue-600 to-violet-500 rounded-full"
                     />
                  </div>
                  <div className="flex justify-between text-[10px] uppercase tracking-tighter font-bold text-slate-600">

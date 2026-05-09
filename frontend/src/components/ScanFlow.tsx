@@ -124,7 +124,7 @@ function ScanResult() {
       animate={{ opacity: 1, scale: 1 }}
       className="max-w-4xl mx-auto py-12"
     >
-      <div className="glass-card p-12 text-center mb-8 bg-gradient-to-br from-blue-600/10 to-transparent">
+      <div className="glass-card p-12 text-center mb-8 bg-linear-to-br from-blue-600/10 to-transparent">
          <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_40px_rgba(34,197,94,0.4)]">
             <CheckCircle2 className="w-12 h-12 text-white" />
          </div>

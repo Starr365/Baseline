@@ -77,6 +77,8 @@ export default function Home() {
                    src="/product_demo_preview.png" 
                    alt="Product Demo Preview" 
                    fill 
+                   priority
+                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
                    className="object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
                  />
               </div>

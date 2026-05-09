@@ -1,0 +1,20 @@
+{
+  "name": "baseline",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "ai-service",
+    "blockchain",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=frontend\" \"npm run dev --workspace=backend\" \"python ai-service/main.py\"",
+    "install:all": "npm install && npm install --workspaces",
+    "build": "npm run build --workspaces --if-present",
+    "start": "npm run start --workspaces --if-present"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

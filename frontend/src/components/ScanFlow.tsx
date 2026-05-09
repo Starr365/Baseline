@@ -5,6 +5,7 @@ import api from '../api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Activity, Brain, Scan, CheckCircle2, ChevronRight, Loader2 } from 'lucide-react';
 import { useScanStore } from '../store/useStore';
+import { useWallet } from '@solana/wallet-adapter-react';
 import { VoiceCapture } from './scan/VoiceCapture';
 import { MotorCapture } from './scan/MotorCapture';
 import { CognitiveCapture } from './scan/CognitiveCapture';
@@ -19,6 +20,7 @@ const steps = [
 
 export function ScanFlow() {
   const { currentStep, setStep, markDone } = useScanStore();
+  const { publicKey } = useWallet();
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -76,7 +78,7 @@ export function ScanFlow() {
         motorData: scanData.motorTimings,
         cognitiveData: scanData.cognitiveScore,
         faceData: capture,
-        walletAddress: '0xTestWallet' // Placeholder until wallet is fully linked
+        walletAddress: publicKey?.toBase58() || 'Anonymous'
       });
       
       // Update store with final result if needed

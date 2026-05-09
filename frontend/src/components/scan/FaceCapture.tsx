@@ -62,7 +62,7 @@ export function FaceCapture({ onComplete }: Props) {
         
         {/* Scanning Overlay */}
         <div className="absolute inset-0 pointer-events-none">
-           <div className="absolute inset-0 border-[40px] border-black/40" />
+           <div className="absolute inset-0 border-40 border-black/40" />
            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-64 border-2 border-blue-500/50 rounded-[3rem] box-content">
               <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-blue-500 rounded-tl-2xl" />
               <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-blue-500 rounded-tr-2xl" />

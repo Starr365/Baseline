@@ -1,21 +1,22 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { ConnectionProvider, WalletProvider, useWallet } from '@solana/wallet-adapter-react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
-import { Activity, Brain, Mic, Scan, Shield, TrendingUp, History, LayoutDashboard } from 'lucide-react';
+import { Activity, Brain, Mic, Scan, Shield, TrendingUp, History, LayoutDashboard, Wallet } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { ScanFlow } from './ScanFlow';
-import { useScanStore } from '../store/useStore';
+import { useScanStore, useAuthStore } from '../store/useStore';
 
 // Default styles that can be overridden by your app
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 export function DashboardContent() {
-  const network = WalletAdapterNetwork.Devnet;
+  const network = WalletAdapterNetwork.Testnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   const wallets = useMemo(() => [new PhantomWalletAdapter()], []);
 
@@ -31,18 +32,47 @@ export function DashboardContent() {
 }
 
 function DashboardMain() {
+  const { connected, publicKey } = useWallet();
   const { currentStep } = useScanStore();
   const [view, setView] = useState('dashboard');
+
+  if (!connected) {
+    return (
+      <div className="min-h-screen bg-[#020617] flex items-center justify-center p-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="glass-panel p-12 text-center max-w-md w-full"
+        >
+          <div className="relative w-20 h-20 mx-auto mb-8">
+            <Image 
+              src="/logo.png" 
+              alt="Baseline Logo" 
+              fill
+              className="object-contain"
+            />
+          </div>
+          <h2 className="text-3xl font-bold mb-4">Connect Wallet</h2>
+          <p className="text-slate-400 mb-10">Access your health intelligence dashboard by connecting your Solana wallet.</p>
+          <WalletMultiButton className="bg-blue-600! rounded-xl! h-14! w-full! text-sm! font-bold! hover:bg-blue-500! transition-all shadow-[0_0_20px_rgba(37,99,235,0.2)]" />
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-[#020617] text-slate-50">
       {/* Sidebar */}
       <aside className="w-64 border-r border-white/5 bg-slate-900/50 p-6 flex flex-col gap-8">
-        <div className="flex items-center gap-2 px-2">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.4)]">
-            <Activity className="w-5 h-5 text-white" />
+        <div className="px-2">
+          <div className="relative w-40 h-14">
+            <Image 
+              src="/logo.png" 
+              alt="Baseline Logo" 
+              fill
+              className="object-contain filter drop-shadow-[0_0_10px_rgba(37,99,235,0.3)]"
+            />
           </div>
-          <span className="text-lg font-bold">Baseline</span>
         </div>
 
         <nav className="flex flex-col gap-2">
@@ -52,8 +82,19 @@ function DashboardMain() {
           <NavItem icon={Shield} label="Privacy & Consent" />
         </nav>
 
-        <div className="mt-auto">
+        <div className="mt-auto flex flex-col gap-4">
           <WalletMultiButton className="bg-blue-600! rounded-xl! h-12! w-full! text-sm! font-semibold! hover:bg-blue-500! transition-all shadow-[0_0_20px_rgba(37,99,235,0.2)]" />
+          
+          <button 
+            onClick={() => {
+              useAuthStore.getState().logout();
+              window.location.href = '/';
+            }}
+            className="w-full py-3 rounded-xl border border-white/5 text-slate-500 hover:text-white hover:bg-white/5 transition-all text-sm font-medium flex items-center justify-center gap-2 group"
+          >
+            <History className="w-4 h-4 group-hover:rotate-180 transition-transform duration-500" />
+            Sign Out
+          </button>
         </div>
       </aside>
 

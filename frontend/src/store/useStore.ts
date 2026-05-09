@@ -53,11 +53,21 @@ export const useScanStore = create<ScanState>((set) => ({
 interface AuthState {
   connected: boolean;
   walletAddress: string | null;
-  setConnected: (connected: boolean, address: string | null) => void;
+  token: string | null;
+  setConnected: (connected: boolean, address: string | null, token?: string | null) => void;
+  logout: () => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   connected: false,
   walletAddress: null,
-  setConnected: (connected, address) => set({ connected, walletAddress: address }),
+  token: typeof window !== 'undefined' ? localStorage.getItem('baseline_token') : null,
+  setConnected: (connected, address, token = null) => {
+    if (token) localStorage.setItem('baseline_token', token);
+    set({ connected, walletAddress: address, token });
+  },
+  logout: () => {
+    localStorage.removeItem('baseline_token');
+    set({ connected: false, walletAddress: null, token: null });
+  },
 }));

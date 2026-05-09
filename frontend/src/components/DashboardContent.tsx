@@ -36,6 +36,13 @@ function DashboardMain() {
   const { connected, publicKey } = useWallet();
   const { currentStep } = useScanStore();
   const [view, setView] = useState('dashboard');
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   if (!connected) {
     return (
@@ -50,6 +57,7 @@ function DashboardMain() {
               src="/logo.png" 
               alt="Baseline Logo" 
               fill
+              sizes="80px"
               className="object-contain"
             />
           </div>

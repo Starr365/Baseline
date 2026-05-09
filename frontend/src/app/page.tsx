@@ -41,6 +41,7 @@ export default function Home() {
               src="/logo.png" 
               alt="Baseline Logo" 
               fill
+              sizes="(max-width: 768px) 128px, 192px"
               priority
               className="object-contain filter drop-shadow-[0_0_20px_rgba(37,99,235,0.6)]"
             />

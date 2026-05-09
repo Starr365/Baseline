@@ -2,6 +2,7 @@ const axios = require('axios');
 const ipfsService = require('../services/ipfsService');
 const solanaService = require('../services/solanaService');
 const elevenLabsService = require('../services/elevenLabsService');
+const historyService = require('../services/historyService');
 
 const processScan = async (req, res) => {
   try {
@@ -45,6 +46,9 @@ const processScan = async (req, res) => {
       timestamp: Date.now()
     };
 
+    // Save to history
+    historyService.saveScan(scanRecord);
+
     res.json(scanRecord);
   } catch (error) {
     console.error('Scan processing error:', error);
@@ -52,4 +56,17 @@ const processScan = async (req, res) => {
   }
 };
 
-module.exports = { processScan };
+const getHistory = async (req, res) => {
+  try {
+    const { walletAddress } = req.query;
+    if (!walletAddress) {
+      return res.status(400).json({ error: 'Wallet address is required' });
+    }
+    const history = historyService.getHistoryByWallet(walletAddress);
+    res.json(history);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch history' });
+  }
+};
+
+module.exports = { processScan, getHistory };

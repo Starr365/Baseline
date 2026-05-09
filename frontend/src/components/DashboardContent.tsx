@@ -10,6 +10,7 @@ import { Activity, Brain, Mic, Scan, Shield, TrendingUp, History, LayoutDashboar
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ScanFlow } from './ScanFlow';
+import { ScanHistory } from './ScanHistory';
 import { useScanStore, useAuthStore } from '../store/useStore';
 
 // Default styles that can be overridden by your app
@@ -61,9 +62,9 @@ function DashboardMain() {
   }
 
   return (
-    <div className="flex min-h-screen bg-[#020617] text-slate-50">
-      {/* Sidebar */}
-      <aside className="w-64 border-r border-white/5 bg-slate-900/50 p-6 flex flex-col gap-8">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-[#020617] text-slate-50 pb-20 lg:pb-0">
+      {/* Sidebar - Desktop Only */}
+      <aside className="hidden lg:flex w-64 border-r border-white/5 bg-slate-900/50 p-6 flex-col gap-8">
         <div className="px-2">
           <div className="relative w-40 h-14">
             <Image 
@@ -78,7 +79,7 @@ function DashboardMain() {
         <nav className="flex flex-col gap-2">
           <NavItem icon={LayoutDashboard} label="Dashboard" active={view === 'dashboard'} onClick={() => setView('dashboard')} />
           <NavItem icon={Scan} label="Health Scan" active={view === 'scan'} onClick={() => setView('scan')} />
-          <NavItem icon={History} label="Scan History" />
+          <NavItem icon={History} label="Scan History" active={view === 'history'} onClick={() => setView('history')} />
           <NavItem icon={Shield} label="Privacy & Consent" />
         </nav>
 
@@ -98,19 +99,45 @@ function DashboardMain() {
         </div>
       </aside>
 
+      {/* Mobile Bottom Nav */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#020617]/80 backdrop-blur-xl border-t border-white/5 px-6 py-3 flex justify-between items-center">
+        <button onClick={() => setView('dashboard')} className={`flex flex-col items-center gap-1 ${view === 'dashboard' ? 'text-blue-500' : 'text-slate-500'}`}>
+          <LayoutDashboard className="w-6 h-6" />
+          <span className="text-[10px] font-bold uppercase tracking-tighter">Home</span>
+        </button>
+        <button onClick={() => setView('scan')} className={`flex flex-col items-center gap-1 ${view === 'scan' ? 'text-blue-500' : 'text-slate-500'}`}>
+          <Scan className="w-6 h-6" />
+          <span className="text-[10px] font-bold uppercase tracking-tighter">Scan</span>
+        </button>
+        <button onClick={() => setView('history')} className={`flex flex-col items-center gap-1 ${view === 'history' ? 'text-blue-500' : 'text-slate-500'}`}>
+          <History className="w-6 h-6" />
+          <span className="text-[10px] font-bold uppercase tracking-tighter">History</span>
+        </button>
+        <button 
+           onClick={() => {
+             useAuthStore.getState().logout();
+             window.location.href = '/';
+           }}
+           className="flex flex-col items-center gap-1 text-slate-500"
+        >
+          <Activity className="w-6 h-6" />
+          <span className="text-[10px] font-bold uppercase tracking-tighter">Logout</span>
+        </button>
+      </nav>
+
       {/* Main Content */}
-      <main className="flex-1 p-8 overflow-y-auto">
-        <header className="flex justify-between items-center mb-10">
+      <main className="flex-1 p-6 md:p-12 overflow-y-auto">
+        <header className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-10">
           <div>
-            <h1 className="text-3xl font-bold mb-1">
-              {view === 'scan' ? 'Active Health Scan' : 'Health Intelligence'}
+            <h1 className="text-2xl md:text-3xl font-bold mb-1">
+              {view === 'scan' ? 'Active Health Scan' : view === 'history' ? 'Scan History' : 'Health Intelligence'}
             </h1>
             <p className="text-slate-400 text-sm">
-              {view === 'scan' ? 'Multimodal signal extraction in progress.' : 'Monitoring your biometric drift in real-time.'}
+              {view === 'scan' ? 'Multimodal signal extraction in progress.' : view === 'history' ? 'Reviewing your historical biometric drift data.' : 'Monitoring your biometric drift in real-time.'}
             </p>
           </div>
           <div className="flex gap-4">
-             <div className="glass-panel px-4 py-2 flex items-center gap-3">
+             <div className="glass-panel px-4 py-2 flex items-center gap-3 w-fit">
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 <span className="text-xs font-medium text-slate-300 uppercase tracking-wider">System Live</span>
              </div>
@@ -119,6 +146,8 @@ function DashboardMain() {
 
         {view === 'scan' ? (
           <ScanFlow />
+        ) : view === 'history' ? (
+          <ScanHistory />
         ) : (
           <>
             <div className="grid lg:grid-cols-3 gap-8">

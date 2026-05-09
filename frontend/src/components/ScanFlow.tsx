@@ -105,17 +105,17 @@ export function ScanFlow() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto py-12">
-      <div className="flex justify-between mb-12">
+    <div className="max-w-2xl mx-auto py-8 md:py-12">
+      <div className="flex justify-between mb-8 md:mb-12 px-4">
         {steps.map((s, i) => (
           <div key={s.id} className="flex flex-col items-center gap-2">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${
+            <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center border-2 transition-all ${
               currentStep === s.id ? 'border-blue-500 bg-blue-500/10 text-blue-400' : 
               steps.findIndex(step => step.id === currentStep) > i ? 'border-green-500 bg-green-500 text-white' : 'border-white/10 text-white/20'
             }`}>
-              {steps.findIndex(step => step.id === currentStep) > i ? <CheckCircle2 className="w-6 h-6" /> : <s.icon className="w-5 h-5" />}
+              {steps.findIndex(step => step.id === currentStep) > i ? <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6" /> : <s.icon className="w-4 h-4 md:w-5 md:h-5" />}
             </div>
-            <span className={`text-[10px] font-bold uppercase tracking-widest ${currentStep === s.id ? 'text-blue-400' : 'text-slate-600'}`}>
+            <span className={`hidden md:block text-[10px] font-bold uppercase tracking-widest ${currentStep === s.id ? 'text-blue-400' : 'text-slate-600'}`}>
               {s.title}
             </span>
           </div>
@@ -128,7 +128,7 @@ export function ScanFlow() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="glass-card p-12 text-center min-h-[400px] flex flex-col justify-center"
+          className="glass-card p-6 md:p-12 text-center min-h-[350px] md:min-h-[400px] flex flex-col justify-center"
         >
           {isProcessing ? (
              <div className="flex flex-col items-center gap-6">

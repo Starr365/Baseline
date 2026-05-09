@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { processScan } = require('../controllers/scanController');
+const { processScan, getHistory } = require('../controllers/scanController');
 
 router.post('/process', processScan);
+router.get('/history', getHistory);
 
 module.exports = router;

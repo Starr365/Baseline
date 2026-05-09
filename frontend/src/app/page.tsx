@@ -36,7 +36,7 @@ export default function Home() {
           animate={{ opacity: 1, x: 0 }}
           className="relative"
         >
-          <div className="relative w-48 h-16">
+          <div className="relative w-32 h-10 md:w-48 md:h-16">
             <Image 
               src="/logo.png" 
               alt="Baseline Logo" 
@@ -303,37 +303,37 @@ export default function Home() {
       </section>
 
       {/* Web3 CTA */}
-      <section className="py-44 px-6 overflow-hidden">
+      <section className="py-24 md:py-44 px-6 overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="max-w-5xl mx-auto glass-panel p-20 text-center relative"
+          className="max-w-5xl mx-auto glass-panel p-10 md:p-20 text-center relative"
         >
           <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-600/10 blur-[120px] -z-10 rounded-full" />
           <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-violet-600/10 blur-[120px] -z-10 rounded-full" />
 
-          <div className="w-24 h-24 bg-linear-to-br from-blue-600 to-violet-600 rounded-4xl flex items-center justify-center mx-auto mb-10 shadow-[0_0_50px_rgba(37,99,235,0.4)]">
-            <Wallet className="w-10 h-10 text-white" />
+          <div className="w-20 h-20 md:w-24 md:h-24 bg-linear-to-br from-blue-600 to-violet-600 rounded-4xl flex items-center justify-center mx-auto mb-10 shadow-[0_0_50px_rgba(37,99,235,0.4)]">
+            <Wallet className="w-8 h-8 md:w-10 md:h-10 text-white" />
           </div>
 
-          <h2 className="text-6xl font-black mb-8 tracking-tighter">Your Health. Your Data. <br /> Your Keys.</h2>
+          <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tighter leading-tight">Your Health. Your Data. <br /> Your Keys.</h2>
 
-          <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
             Baseline leverages the speed of Solana and the permanence of IPFS to ensure you never have to trade privacy for health insights.
           </p>
 
           <button
             onClick={() => window.location.href = '/dashboard'}
-            className="px-14 py-6 bg-blue-600 hover:bg-blue-500 rounded-3xl font-black text-lg transition-all shadow-[0_0_40px_rgba(37,99,235,0.5)] active:scale-95"
+            className="px-10 py-5 md:px-14 md:py-6 bg-blue-600 hover:bg-blue-500 rounded-3xl font-black text-base md:text-lg transition-all shadow-[0_0_40px_rgba(37,99,235,0.5)] active:scale-95"
           >
             Connect Wallet & Enter
           </button>
 
-          <div className="mt-16 flex justify-center gap-10 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-600">
+          <div className="mt-16 flex flex-wrap justify-center gap-6 md:gap-10 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-600">
             <span>End-to-End Encrypted</span>
-            <span className="text-gray-800">•</span>
+            <span className="hidden md:inline text-gray-800">•</span>
             <span>Decentralized Storage</span>
-            <span className="text-gray-800">•</span>
+            <span className="hidden md:inline text-gray-800">•</span>
             <span>Predictive AI</span>
           </div>
         </motion.div>

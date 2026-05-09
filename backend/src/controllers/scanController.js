@@ -8,18 +8,19 @@ const processScan = async (req, res) => {
   try {
     const { voiceData, motorData, cognitiveData, faceData, walletAddress } = req.body;
 
+    // Call AI Service with sanitized data
     const aiResponse = await axios.post((process.env.AI_SERVICE_URL || 'http://localhost:8000') + '/analyze', {
-      voice_data: [], 
+      voice_data: voiceData || [], 
       motor_data: motorData || [],
-      cognitive_data: [cognitiveData] || [],
-      face_data: []
+      cognitive_data: cognitiveData !== undefined ? [cognitiveData] : [0],
+      face_data: faceData ? [faceData] : []
     });
 
     const { final_score, breakdown, risk_level } = aiResponse.data;
     
     // 1. Upload metadata to IPFS
     const ipfsHash = await ipfsService.uploadMetadata({
-      walletAddress,
+      walletAddress: walletAddress || 'Anonymous',
       totalScore: final_score,
       breakdown,
       riskCategory: risk_level,

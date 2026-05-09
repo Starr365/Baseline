@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Activity, Brain, Scan, CheckCircle2, ChevronRight, Loader2 } from 'lucide-react';
 import { useScanStore } from '../store/useStore';
@@ -71,7 +71,7 @@ export function ScanFlow() {
     
     try {
       const { scanData } = useScanStore.getState();
-      const response = await axios.post('/api/scan/submit', {
+      const response = await api.post('/api/scan/process', {
         voiceData: [], // Would send processed audio features or blob reference
         motorData: scanData.motorTimings,
         cognitiveData: scanData.cognitiveScore,

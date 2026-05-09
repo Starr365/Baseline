@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { motion } from 'framer-motion';
 import { History, ExternalLink, Shield, Database, Calendar, Activity } from 'lucide-react';
@@ -24,7 +24,7 @@ export function ScanHistory() {
     const fetchHistory = async () => {
       if (!publicKey) return;
       try {
-        const response = await axios.get(`/api/scan/history?walletAddress=${publicKey.toBase58()}`);
+        const response = await api.get(`/api/scan/history?walletAddress=${publicKey.toBase58()}`);
         setHistory(response.data);
       } catch (error) {
         console.error('Failed to fetch history:', error);

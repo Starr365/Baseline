@@ -1,35 +1,48 @@
-const { calculateHealthDrift } = require('../services/scoringService');
 const axios = require('axios');
+const ipfsService = require('../services/ipfsService');
+const solanaService = require('../services/solanaService');
+const elevenLabsService = require('../services/elevenLabsService');
 
 const processScan = async (req, res) => {
   try {
     const { voiceData, motorData, cognitiveData, faceData, walletAddress } = req.body;
 
-    // In a real app, we'd send raw data to the AI service
-    // const aiResponse = await axios.post(process.env.AI_SERVICE_URL + '/analyze', {
-    //   voice_data: voiceData,
-    //   motor_data: motorData,
-    //   cognitive_data: cognitiveData,
-    //   face_data: faceData
-    // });
-    // const { voice_score, motor_score, cognitive_score, face_score } = aiResponse.data;
+    const aiResponse = await axios.post((process.env.AI_SERVICE_URL || 'http://localhost:8000') + '/analyze', {
+      voice_data: [], 
+      motor_data: motorData || [],
+      cognitive_data: [cognitiveData] || [],
+      face_data: []
+    });
 
-    // For demo, we simulate AI scores or use provided ones
-    const signals = {
-      voice: Math.random() * 100,
-      motor: Math.random() * 100,
-      cognition: Math.random() * 100,
-      face: Math.random() * 100
-    };
-
-    const result = calculateHealthDrift(signals);
+    const { final_score, breakdown, risk_level } = aiResponse.data;
     
-    // Store in DB (mocked)
+    // 1. Upload metadata to IPFS
+    const ipfsHash = await ipfsService.uploadMetadata({
+      walletAddress,
+      totalScore: final_score,
+      breakdown,
+      riskCategory: risk_level,
+      timestamp: Date.now()
+    });
+
+    // 2. Anchor on Solana
+    const txSignature = await solanaService.logScanOnChain(walletAddress, ipfsHash);
+
+    // 3. Generate Voice Feedback
+    const feedbackText = `Your Baseline scan is complete. Your Health Drift Score is ${final_score}, which indicates an ${risk_level} status. All metadata has been anchored to Solana.`;
+    const audioBuffer = await elevenLabsService.generateSpeech(feedbackText);
+    
     const scanRecord = {
       id: Math.random().toString(36).substr(2, 9),
       walletAddress,
-      ...result,
-      signals
+      totalScore: final_score,
+      riskCategory: risk_level,
+      breakdown,
+      ipfsHash,
+      txSignature,
+      feedbackText,
+      audioBase64: audioBuffer ? audioBuffer.toString('base64') : null,
+      timestamp: Date.now()
     };
 
     res.json(scanRecord);

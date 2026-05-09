@@ -1,9 +1,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Activity, Brain, Scan, CheckCircle2, ChevronRight, Loader2 } from 'lucide-react';
 import { useScanStore } from '../store/useStore';
+import { VoiceCapture } from './scan/VoiceCapture';
+import { MotorCapture } from './scan/MotorCapture';
+import { CognitiveCapture } from './scan/CognitiveCapture';
+import { FaceCapture } from './scan/FaceCapture';
 
 const steps = [
   { id: 'voice', title: 'Voice Analysis', icon: Mic, description: 'Speak the phrase: "The quick brown fox jumps over the lazy dog."' },
@@ -45,17 +50,59 @@ export function ScanFlow() {
     }
   }, [progress, currentStep, setStep]);
 
-  const handleStartStep = () => {
+  const handleVoiceComplete = (blob: Blob) => {
+    markDone('voice', { voiceBlob: blob });
+    setStep('motor');
+  };
+
+  const handleMotorComplete = (timings: number[]) => {
+    markDone('motor', { motorTimings: timings });
+    setStep('cognitive');
+  };
+
+  const handleCognitiveComplete = (score: number) => {
+    markDone('cognitive', { cognitiveScore: score });
+    setStep('face');
+  };
+
+  const handleFaceComplete = async (capture: string) => {
+    markDone('face', { faceCapture: capture });
     setIsProcessing(true);
-    markDone(currentStep);
+    
+    try {
+      const { scanData } = useScanStore.getState();
+      const response = await axios.post('/api/scan/submit', {
+        voiceData: [], // Would send processed audio features or blob reference
+        motorData: scanData.motorTimings,
+        cognitiveData: scanData.cognitiveScore,
+        faceData: capture,
+        walletAddress: '0xTestWallet' // Placeholder until wallet is fully linked
+      });
+      
+      // Update store with final result if needed
+      console.log('Scan Results:', response.data);
+      
+      // Play voice feedback if available
+      if (response.data.audioBase64) {
+        const audio = new Audio(`data:audio/mpeg;base64,${response.data.audioBase64}`);
+        audio.play().catch(e => console.error('Audio playback failed:', e));
+      }
+      
+      setTimeout(() => {
+        setIsProcessing(false);
+        setStep('result');
+      }, 1500);
+    } catch (error) {
+      console.error('Submission failed:', error);
+      setIsProcessing(false);
+      // Fallback to show result screen anyway for demo purposes
+      setStep('result');
+    }
   };
 
   if (currentStep === 'result') {
     return <ScanResult />;
   }
-
-  const stepData = steps.find(s => s.id === currentStep) || steps[0];
-  const StepIcon = stepData.icon;
 
   return (
     <div className="max-w-2xl mx-auto py-12">
@@ -81,35 +128,23 @@ export function ScanFlow() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="glass-card p-12 text-center"
+          className="glass-card p-12 text-center min-h-[400px] flex flex-col justify-center"
         >
-          <div className="w-20 h-20 bg-blue-600/10 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-blue-500/20">
-            <StepIcon className="w-10 h-10 text-blue-500" />
-          </div>
-          <h2 className="text-3xl font-bold mb-4">{stepData.title}</h2>
-          <p className="text-slate-400 mb-10 max-w-sm mx-auto">{stepData.description}</p>
-
           {isProcessing ? (
-            <div className="space-y-6">
-               <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    animate={{ width: `${progress}%` }}
-                    className="h-full bg-blue-600 shadow-[0_0_15px_rgba(37,99,235,0.5)]"
-                  />
-               </div>
-               <div className="flex items-center justify-center gap-2 text-blue-400 font-mono text-sm">
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  ANALYZING SIGNALS... {progress}%
-               </div>
-            </div>
+             <div className="flex flex-col items-center gap-6">
+                <div className="w-20 h-20 bg-blue-600/10 rounded-full flex items-center justify-center border border-blue-500/20 animate-pulse">
+                   <Loader2 className="w-10 h-10 text-blue-500 animate-spin" />
+                </div>
+                <h2 className="text-2xl font-bold">Finalizing AI Analysis</h2>
+                <p className="text-slate-400">Comparing signals against your baseline...</p>
+             </div>
           ) : (
-            <button 
-              onClick={handleStartStep}
-              className="px-10 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-bold transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)] flex items-center gap-2 mx-auto"
-            >
-              Start Analysis <ChevronRight className="w-5 h-5" />
-            </button>
+            <>
+              {currentStep === 'voice' && <VoiceCapture onComplete={handleVoiceComplete} />}
+              {currentStep === 'motor' && <MotorCapture onComplete={handleMotorComplete} />}
+              {currentStep === 'cognitive' && <CognitiveCapture onComplete={handleCognitiveComplete} />}
+              {currentStep === 'face' && <FaceCapture onComplete={handleFaceComplete} />}
+            </>
           )}
         </motion.div>
       </AnimatePresence>

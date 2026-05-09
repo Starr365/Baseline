@@ -6,8 +6,14 @@ interface ScanState {
   cognitiveDone: boolean;
   faceDone: boolean;
   currentStep: 'voice' | 'motor' | 'cognitive' | 'face' | 'result';
+  scanData: {
+    voiceBlob: Blob | null;
+    motorTimings: number[];
+    cognitiveScore: number;
+    faceCapture: string | null; // base64 image or similar
+  };
   setStep: (step: any) => void;
-  markDone: (step: string) => void;
+  markDone: (step: string, data?: any) => void;
   resetScan: () => void;
 }
 
@@ -17,14 +23,30 @@ export const useScanStore = create<ScanState>((set) => ({
   cognitiveDone: false,
   faceDone: false,
   currentStep: 'voice',
+  scanData: {
+    voiceBlob: null,
+    motorTimings: [],
+    cognitiveScore: 0,
+    faceCapture: null,
+  },
   setStep: (step) => set({ currentStep: step }),
-  markDone: (step) => set((state) => ({ ...state, [`${step}Done`]: true })),
+  markDone: (step, data) => set((state) => ({ 
+    ...state, 
+    [`${step}Done`]: true,
+    scanData: { ...state.scanData, ...data }
+  })),
   resetScan: () => set({
     voiceDone: false,
     motorDone: false,
     cognitiveDone: false,
     faceDone: false,
-    currentStep: 'voice'
+    currentStep: 'voice',
+    scanData: {
+      voiceBlob: null,
+      motorTimings: [],
+      cognitiveScore: 0,
+      faceCapture: null,
+    }
   }),
 }));
 

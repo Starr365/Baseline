@@ -13,6 +13,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Routes
+app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/scan', require('./routes/scanRoutes'));
 
 app.get('/health', (req, res) => {

@@ -116,6 +116,7 @@ anchor deploy
     *   **Frontend**: [baseline-frontend-alpha.vercel.app](https://baseline-frontend-alpha.vercel.app/)
     *   **Backend**: [backend-production-f39f.up.railway.app](https://backend-production-f39f.up.railway.app/)
     *   **Solana Explorer**: https://explorer.solana.com/address/4tSkA5NcQAerpErKUukc3N9m5Mzyih9xLtyoskrsEsVu?cluster=devnet
+    *   **WalletAddress**: 3dJZtqPfF9KKLaC1VpWVj8ZBttJUBFQYEc3DnbzZQhux
 
 ---
 

@@ -23,10 +23,7 @@ const solanaService = {
       if (process.env.SOLANA_SERVER_SECRET) {
          serverKeypair = Keypair.fromSecretKey(bs58.decode(process.env.SOLANA_SERVER_SECRET));
       } else {
-         // This is just a fallback for the demo if env is missing
-         const dummySecret = new Uint8Array(64);
-         dummySecret[0] = 1; // avoid all zeros
-         serverKeypair = Keypair.fromSecretKey(dummySecret);
+        serverKeypair = Keypair.generate();
       }
 
       const instruction = new TransactionInstruction({

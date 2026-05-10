@@ -67,7 +67,7 @@ export default function Home() {
           onClick={() => window.location.href = '/dashboard'}
           className="px-6 py-2.5 bg-white text-black hover:bg-gray-200 rounded-full text-sm font-bold transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95"
         >
-          Launch App
+          Connect Wallet
         </motion.button>
       </nav>
 

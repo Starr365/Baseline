@@ -35,7 +35,7 @@ Baseline was built to solve the challenge of fragmented and unverifiable health 
 *   **Solana (Anchor/Rust)**: We chose Solana for its high throughput and low transaction costs, which are essential for logging frequent health scan events without friction for the user.
 *   **IPFS for Metadata**: Storing raw biometric data on-chain is prohibitively expensive. We use IPFS to store detailed scan metadata and anchor only the CID (Content Identifier) on-chain.
 *   **ElevenLabs over standard TTS**: Health data is sensitive and personal. ElevenLabs provides a "human" element to the feedback, increasing user trust and engagement compared to robotic browser-default synthesis.
-*   **JWT + Wallet Signature**: We use a dual authentication strategy where the user signs a message with their wallet to establish session identity, proving ownership of the health history.
+*   **Wallet Signature**: We use a simple authentication strategy where the user signs a message with their wallet to establish session identity, proving ownership of the health history.
 
 ---
 
@@ -113,18 +113,19 @@ anchor deploy
 ## 🔗 Deployment Addresses
 
 *   **Solana Program ID (Devnet)**: `4tSkA5NcQAerpErKUukc3N9m5Mzyih9xLtyoskrsEsVu`
-*   **Frontend**: [baseline-frontend-alpha.vercel.app](https://baseline-frontend-alpha.vercel.app/)
-*   **Backend**: [backend-production-f39f.up.railway.app](https://backend-production-f39f.up.railway.app/)
+    *   **Frontend**: [baseline-frontend-alpha.vercel.app](https://baseline-frontend-alpha.vercel.app/)
+    *   **Backend**: [backend-production-f39f.up.railway.app](https://backend-production-f39f.up.railway.app/)
+    *   **Solana Explorer**: https://explorer.solana.com/address/4tSkA5NcQAerpErKUukc3N9m5Mzyih9xLtyoskrsEsVu?cluster=devnet
 
 ---
 
 ## 📸 Screenshots
 
 ### Desktop Dashboard
-![Dashboard View](/docs/screenshots/dashboard_desktop.png)
+![Dashboard View](./shared/screenshots/desktop-pg.jpg)
 
 ### Mobile Scan Interface
-![Mobile View](/docs/screenshots/scan_mobile.png)
+![Mobile View](./shared/screenshots/mobile-lg.jpg)
 
 ---
 

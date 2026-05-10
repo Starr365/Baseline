@@ -88,7 +88,7 @@ function DashboardMain() {
           <NavItem icon={LayoutDashboard} label="Dashboard" active={view === 'dashboard'} onClick={() => setView('dashboard')} />
           <NavItem icon={Scan} label="Health Scan" active={view === 'scan'} onClick={() => setView('scan')} />
           <NavItem icon={History} label="Scan History" active={view === 'history'} onClick={() => setView('history')} />
-          <NavItem icon={Shield} label="Privacy & Consent" />
+          <NavItem icon={Shield} label="Privacy & Consent" active={view === 'privacy'} onClick={() => setView('privacy')} />
         </nav>
 
         <div className="mt-auto flex flex-col gap-4">
@@ -121,6 +121,10 @@ function DashboardMain() {
           <History className="w-6 h-6" />
           <span className="text-[10px] font-bold uppercase tracking-tighter">History</span>
         </button>
+        <button onClick={() => setView('privacy')} className={`flex flex-col items-center gap-1 ${view === 'privacy' ? 'text-blue-500' : 'text-slate-500'}`}>
+          <Shield className="w-6 h-6" />
+          <span className="text-[10px] font-bold uppercase tracking-tighter">Privacy</span>
+        </button>
         <button 
            onClick={() => {
              useAuthStore.getState().logout();
@@ -141,7 +145,7 @@ function DashboardMain() {
               {view === 'scan' ? 'Active Health Scan' : view === 'history' ? 'Scan History' : 'Health Intelligence'}
             </h1>
             <p className="text-slate-400 text-sm">
-              {view === 'scan' ? 'Multimodal signal extraction in progress.' : view === 'history' ? 'Reviewing your historical biometric drift data.' : 'Monitoring your biometric drift in real-time.'}
+              {view === 'scan' ? 'Multimodal signal extraction in progress.' : view === 'history' ? 'Reviewing your historical biometric drift data.' : view === 'privacy' ? 'Our commitment to your data sovereignty.' : 'Monitoring your biometric drift in real-time.'}
             </p>
           </div>
           <div className="flex gap-4">
@@ -156,6 +160,8 @@ function DashboardMain() {
           <ScanFlow />
         ) : view === 'history' ? (
           <ScanHistory />
+        ) : view === 'privacy' ? (
+          <PrivacyView />
         ) : (
           <>
             <div className="grid lg:grid-cols-3 gap-8">
@@ -221,6 +227,41 @@ function DashboardMain() {
         )}
       </main>
     </div>
+  );
+}
+
+function PrivacyView() {
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="max-w-3xl glass-card p-12"
+    >
+      <div className="w-16 h-16 bg-blue-600/10 rounded-2xl flex items-center justify-center mb-8 border border-blue-500/20">
+        <Shield className="w-8 h-8 text-blue-500" />
+      </div>
+      <h2 className="text-3xl font-bold mb-6 text-white">Privacy & Consent</h2>
+      <div className="space-y-6 text-slate-400 leading-relaxed">
+        <p>
+          At **Baseline**, we value your privacy above all else. We believe that your health data should be owned and controlled exclusively by you. 
+        </p>
+        <p>
+          Unlike traditional health platforms that store raw biometric signals on centralized servers, Baseline uses a decentralized approach. Your voice, motor, and facial signals are processed locally and only anonymized metadata hashes are anchored to the **Solana** blockchain via **IPFS**.
+        </p>
+        <p>
+          By connecting your wallet, you maintain full sovereignty over your health history. Every scan requires your explicit consent through a wallet signature, ensuring that no data is ever recorded or shared without your direct authorization.
+        </p>
+        <div className="pt-8 border-t border-white/5">
+          <h4 className="text-white font-bold mb-4">Our Commitment:</h4>
+          <ul className="list-disc list-inside space-y-2 text-sm">
+            <li>End-to-end encryption for all metadata</li>
+            <li>No permanent storage of raw audio or video files</li>
+            <li>Verifiable on-chain data ownership</li>
+            <li>Zero third-party data monetization</li>
+          </ul>
+        </div>
+      </div>
+    </motion.div>
   );
 }
 

@@ -52,12 +52,12 @@ function DashboardMain() {
           animate={{ opacity: 1, y: 0 }}
           className="glass-panel p-12 text-center max-w-md w-full"
         >
-          <div className="relative w-20 h-20 mx-auto mb-8">
+          <div className="relative w-24 h-10 mx-auto mb-8">
             <Image 
               src="/logo.png" 
               alt="Baseline Logo" 
               fill
-              sizes="80px"
+              sizes="96px"
               className="object-contain"
             />
           </div>
@@ -73,13 +73,13 @@ function DashboardMain() {
     <div className="flex flex-col lg:flex-row min-h-screen bg-[#020617] text-slate-50 pb-20 lg:pb-0">
       {/* Sidebar - Desktop Only */}
       <aside className="hidden lg:flex w-64 border-r border-white/5 bg-slate-900/50 p-6 flex-col gap-8">
-        <div className="px-2">
-          <div className="relative w-40 h-14">
+        <div className="px-2 h-14 flex items-center">
+          <div className="relative w-32 h-8">
             <Image 
               src="/logo.png" 
               alt="Baseline Logo" 
               fill
-              className="object-contain filter drop-shadow-[0_0_10px_rgba(37,99,235,0.3)]"
+              className="object-contain object-left filter drop-shadow-[0_0_10px_rgba(37,99,235,0.3)]"
             />
           </div>
         </div>

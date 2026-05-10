@@ -30,20 +30,20 @@ export default function Home() {
       </div>
 
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center bg-[#020617]/40 backdrop-blur-xl border-b border-white/5">
+      <nav className="fixed top-0 w-full z-50 px-6 h-20 flex justify-between items-center bg-[#020617]/40 backdrop-blur-xl border-b border-white/5">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="relative"
+          className="relative h-full flex items-center"
         >
-          <div className="relative w-32 h-10 md:w-48 md:h-16">
+          <div className="relative w-32 h-8 md:w-40 md:h-10">
             <Image 
               src="/logo.png" 
               alt="Baseline Logo" 
               fill
-              sizes="(max-width: 768px) 128px, 192px"
+              sizes="(max-width: 768px) 128px, 160px"
               priority
-              className="object-contain filter drop-shadow-[0_0_20px_rgba(37,99,235,0.6)]"
+              className="object-contain object-left filter drop-shadow-[0_0_20px_rgba(37,99,235,0.6)]"
             />
           </div>
         </motion.div>
@@ -72,8 +72,8 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-44 pb-32 px-6 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <section className="relative min-h-[80vh] md:min-h-screen flex items-center pt-20 px-6 max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -89,11 +89,11 @@ export default function Home() {
               Live on Solana Devnet
             </motion.div>
 
-            <h1 className="text-4xl md:text-6xl font-black leading-[0.9] mb-8 tracking-tighter">
-              Hear the <br />
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.1] md:leading-[0.9] mb-8 tracking-tighter max-w-4xl">
+              Hear the{' '}
               <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-violet-400 to-indigo-500">
                 Baseline
-              </span> <br />
+              </span>{' '}
               of your health.
             </h1>
 
@@ -126,18 +126,18 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="relative"
+            className="relative lg:h-[600px] flex items-center"
           >
-            <div className="relative glass-panel p-2 rounded-4xl overflow-hidden group">
+            <div className="relative glass-panel p-2 rounded-4xl overflow-hidden group w-full">
               <div className="absolute inset-0 bg-linear-to-tr from-blue-600/20 via-transparent to-violet-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              <div className="aspect-square md:aspect-4/5 bg-slate-900/50 rounded-[1.8rem] overflow-hidden border border-white/5 relative">
+              <div className="aspect-square lg:aspect-4/5 bg-slate-900/50 rounded-[1.8rem] overflow-hidden border border-white/5 relative h-full">
                 <Image
                   src="/product_demo_preview.png"
                   alt="Baseline Interface"
                   fill
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
-                  className="object-cover opacity-90 scale-125 group-hover:scale-135 transition-transform duration-[2s] ease-out"
+                  className="object-cover opacity-90 scale-110 group-hover:scale-120 transition-transform duration-[2s] ease-out"
                 />
               </div>
             </div>

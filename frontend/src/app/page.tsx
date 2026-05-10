@@ -72,8 +72,8 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] md:min-h-screen flex items-center pt-20 px-6 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
+      <section className="relative md:min-h-[calc(100vh-80px)] flex items-center mt-20 px-6 max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full py-12">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -83,7 +83,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold mb-8 uppercase tracking-widest"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold mb-6 uppercase tracking-widest"
             >
               <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
               Live on Solana Devnet
@@ -97,7 +97,7 @@ export default function Home() {
               of your health.
             </h1>
 
-            <p className="text-xl text-gray-400 mb-10 max-w-xl leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-400 mb-10 max-w-xl leading-relaxed">
               The world's first AI-powered health intelligence platform detecting early functional drift through multimodal biometric signals. Secure. On-chain. Predictive.
             </p>
 
@@ -126,7 +126,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="relative lg:h-[600px] flex items-center"
+            className="relative lg:h-[500px] flex items-center"
           >
             <div className="relative glass-panel p-2 rounded-4xl overflow-hidden group w-full">
               <div className="absolute inset-0 bg-linear-to-tr from-blue-600/20 via-transparent to-violet-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />

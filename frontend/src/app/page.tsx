@@ -126,18 +126,18 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="relative lg:h-[500px] flex items-center"
+            className="relative lg:h-[400px] flex items-center justify-center lg:justify-end"
           >
-            <div className="relative glass-panel p-2 rounded-4xl overflow-hidden group w-full">
+            <div className="relative glass-panel p-2 rounded-3xl overflow-hidden group w-full max-w-[450px]">
               <div className="absolute inset-0 bg-linear-to-tr from-blue-600/20 via-transparent to-violet-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              <div className="aspect-square lg:aspect-4/5 bg-slate-900/50 rounded-[1.8rem] overflow-hidden border border-white/5 relative h-full">
+              <div className="aspect-square bg-slate-900/50 rounded-2xl overflow-hidden border border-white/5 relative">
                 <Image
                   src="/product_demo_preview.png"
                   alt="Baseline Interface"
                   fill
                   priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
-                  className="object-cover opacity-90 scale-110 group-hover:scale-120 transition-transform duration-[2s] ease-out"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                  className="object-cover opacity-90 group-hover:scale-105 transition-transform duration-[2s] ease-out"
                 />
               </div>
             </div>

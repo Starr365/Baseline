@@ -20,7 +20,7 @@ In the current reactive healthcare landscape, symptoms are often addressed only 
 ### Backend
 - **Runtime**: Node.js / Express
 - **Auth**: JWT + Solana Signature Verification
-- **Blockchain**: Solana Testnet (Anchor Program)
+- **Blockchain**: Solana Devnet (Anchor Program)
 - **Storage**: IPFS (Pinata)
 - **AI Service**: Python (FastAPI) + Scikit-learn/TensorFlow
 
@@ -69,8 +69,9 @@ PORT=5000
 JWT_SECRET=your_secret
 AI_SERVICE_URL=http://localhost:8000
 PINATA_JWT=your_pinata_jwt
-SOLANA_RPC_URL=https://api.testnet.solana.com
-SOLANA_PROGRAM_ID=your_program_id
+SOLANA_RPC_URL=https://api.devnet.solana.com
+SOLANA_PROGRAM_ID=4tSkA5NcQAerpErKUukc3N9m5Mzyih9xLtyoskrsEsVu
+SOLANA_WALLET_ADDRESS=3dJZtqPfF9KKLaC1VpWVj8ZBttJUBFQYEc3DnbzZQhux
 ELEVENLABS_API_KEY=your_key
 ```
 

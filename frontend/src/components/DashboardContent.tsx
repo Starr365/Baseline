@@ -17,7 +17,7 @@ import { useScanStore, useAuthStore } from '../store/useStore';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 export function DashboardContent() {
-  const network = WalletAdapterNetwork.Testnet;
+  const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   const wallets = useMemo(() => [new PhantomWalletAdapter()], []);
 

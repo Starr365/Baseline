@@ -27,7 +27,7 @@ export function ScanFlow() {
   useEffect(() => {
     if (isProcessing) {
       const interval = setInterval(() => {
-        setProgress(prev => {
+        setProgress((prev: number) => {
           if (prev >= 100) {
             clearInterval(interval);
             return 100;
@@ -176,7 +176,7 @@ function ScanResult() {
             </div>
             <div className="glass-card p-6 bg-white/5 text-left">
                <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Solana Transaction</div>
-               <div className="text-xs font-mono text-blue-400 break-all mb-2">5x9J...p8kL</div>
+               <div className="text-xs font-mono text-blue-400 break-all mb-2">2tzj...vmed</div>
                <div className="text-slate-500 text-[10px] uppercase">Transaction Confirmed</div>
             </div>
          </div>

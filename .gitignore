@@ -1,18 +1,42 @@
+# Dependencies
 node_modules/
+.pnp
+.pnp.js
+
+# Build artifacts
 .next/
 dist/
 build/
+target/
+
+# Environment
 .env*
 env.local
 **/env.local
 **/.env*
+
+# Solana / Anchor
+blockchain/bin/
+blockchain/target/
+*.so
+*-keypair.json
+
+# System / IDE
 .DS_Store
 *.log
 __pycache__/
 *.pyc
 .pytest_cache/
 venv/
-.env*
-.env.local
+.vscode/
+.idea/
 
+# Large installers / backups
+*.zip
+*.tar.bz2
+*.exe
+solana-release/
+
+# Temporary / Docs
 docs.md
+blockchain/docs.md

@@ -86,7 +86,7 @@ export default function Home() {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold mb-8 uppercase tracking-widest"
             >
               <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-              Live on Solana Testnet
+              Live on Solana Devnet
             </motion.div>
 
             <h1 className="text-4xl md:text-6xl font-black leading-[0.9] mb-8 tracking-tighter">

@@ -12,6 +12,7 @@ interface ScanState {
     cognitiveScore: number;
     faceCapture: string | null; // base64 image or similar
   };
+  lastResult: any | null;
   setStep: (step: any) => void;
   markDone: (step: string, data?: any) => void;
   resetScan: () => void;
@@ -29,6 +30,7 @@ export const useScanStore = create<ScanState>((set) => ({
     cognitiveScore: 0,
     faceCapture: null,
   },
+  lastResult: null,
   setStep: (step) => set({ currentStep: step }),
   markDone: (step, data) => set((state) => ({ 
     ...state, 
@@ -46,7 +48,8 @@ export const useScanStore = create<ScanState>((set) => ({
       motorTimings: [],
       cognitiveScore: 0,
       faceCapture: null,
-    }
+    },
+    lastResult: null
   }),
 }));
 

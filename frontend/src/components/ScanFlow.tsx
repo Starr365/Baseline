@@ -81,7 +81,8 @@ export function ScanFlow() {
         walletAddress: publicKey?.toBase58() || 'Anonymous'
       });
       
-      // Update store with final result if needed
+      // Update store with final result
+      useScanStore.setState({ lastResult: response.data });
       console.log('Scan Results:', response.data);
       
       // Play voice feedback if available
@@ -97,7 +98,17 @@ export function ScanFlow() {
     } catch (error) {
       console.error('Submission failed:', error);
       setIsProcessing(false);
-      // Fallback to show result screen anyway for demo purposes
+      
+      // Fallback for demo purposes if backend fails
+      useScanStore.setState({ 
+        lastResult: {
+          totalScore: 84,
+          riskCategory: 'Optimal',
+          txSignature: '0x' + Math.random().toString(36).substr(2, 12),
+          ipfsHash: 'Qm' + Math.random().toString(36).substr(2, 12)
+        } 
+      });
+      
       setStep('result');
     }
   };
@@ -155,6 +166,10 @@ export function ScanFlow() {
 }
 
 function ScanResult() {
+  const { lastResult, resetScan } = useScanStore();
+  
+  if (!lastResult) return null;
+
   return (
     <motion.div 
       initial={{ opacity: 0, scale: 0.95 }}
@@ -171,18 +186,23 @@ function ScanResult() {
          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             <div className="glass-card p-6 bg-white/5 text-left">
                <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Health Drift Score</div>
-               <div className="text-5xl font-bold text-white">87</div>
-               <div className="text-green-400 text-xs mt-2 font-bold uppercase tracking-tighter">Category: Normal</div>
+               <div className="text-5xl font-bold text-white">{lastResult.totalScore}</div>
+               <div className="text-green-400 text-xs mt-2 font-bold uppercase tracking-tighter">Category: {lastResult.riskCategory}</div>
             </div>
             <div className="glass-card p-6 bg-white/5 text-left">
                <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Solana Transaction</div>
-               <div className="text-xs font-mono text-blue-400 break-all mb-2">2tzj...vmed</div>
+               <div className="text-xs font-mono text-blue-400 break-all mb-2">
+                  {lastResult.txSignature ? `${lastResult.txSignature.substring(0, 8)}...${lastResult.txSignature.substring(lastResult.txSignature.length - 8)}` : 'N/A'}
+               </div>
                <div className="text-slate-500 text-[10px] uppercase">Transaction Confirmed</div>
             </div>
          </div>
          
          <button 
-           onClick={() => window.location.href = '/dashboard'}
+           onClick={() => {
+             resetScan();
+             window.location.href = '/dashboard';
+           }}
            className="mt-12 px-8 py-3 border border-white/10 hover:bg-white/5 rounded-xl text-sm font-bold transition-all"
          >
             Return to Dashboard

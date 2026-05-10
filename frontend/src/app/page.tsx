@@ -37,9 +37,9 @@ export default function Home() {
           className="relative h-full flex items-center"
         >
           <div className="relative w-32 h-8 md:w-40 md:h-10">
-            <Image 
-              src="/logo.png" 
-              alt="Baseline Logo" 
+            <Image
+              src="/logo.png"
+              alt="Baseline Logo"
               fill
               sizes="(max-width: 768px) 128px, 160px"
               priority
@@ -72,8 +72,8 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative md:min-h-[calc(100vh-80px)] flex items-center mt-20 px-6 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full py-12">
+      <section className="relative min-h-[80vh] md:min-h-screen flex items-center pt-20 px-6 max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -83,7 +83,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold mb-6 uppercase tracking-widest"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold mb-8 uppercase tracking-widest"
             >
               <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
               Live on Solana Devnet
@@ -343,11 +343,16 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-12 border-t border-white/5 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-blue-600 rounded flex items-center justify-center">
-              <Activity className="w-3.5 h-3.5 text-white" />
+          <div className="flex items-center gap-3">
+            <div className="relative w-24 h-8">
+              <Image 
+                src="/logo.png" 
+                alt="Baseline Logo" 
+                fill
+                sizes="96px"
+                className="object-contain filter brightness-0 invert opacity-50 hover:opacity-100 transition-opacity"
+              />
             </div>
-            <span className="font-bold tracking-tight">Baseline</span>
           </div>
           <div className="flex gap-10 text-xs text-gray-500 font-medium">
             <a href="#" className="hover:text-white transition-colors">Documentation</a>

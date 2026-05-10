@@ -136,8 +136,8 @@ export default function Home() {
                   alt="Baseline Interface"
                   fill
                   priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                  className="object-cover opacity-90 group-hover:scale-105 transition-transform duration-[2s] ease-out"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+                  className="object-cover opacity-90 scale-110 group-hover:scale-120 transition-transform duration-[2s] ease-out"
                 />
               </div>
             </div>
@@ -345,9 +345,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-3">
             <div className="relative w-24 h-8">
-              <Image 
-                src="/logo.png" 
-                alt="Baseline Logo" 
+              <Image
+                src="/logo.png"
+                alt="Baseline Logo"
                 fill
                 sizes="96px"
                 className="object-contain filter brightness-0 invert opacity-50 hover:opacity-100 transition-opacity"
